@@ -1,10 +1,10 @@
 filename = "BOOK.txt"
 
 def create():
-    author = input("Введіть прізвище автора: ")
-    title = input("Введіть назву книги: ")
-    publisher = input("Введіть видавництво: ")
-    year = input("Введіть рік видання: ")
+    author = input("Enter the author's last name: ")
+    title = input("Enter the book title: ")
+    publisher = input("Enter the publisher: ")
+    year = input("Enter the publication year: ")
     return f"{author},{title},{publisher},{year}\n"
 
 def load():
@@ -19,7 +19,7 @@ def view():
     books = load()
     for book in books:
         author, title, publisher, year = book.strip().split(',')
-        print(f"Автор: {author}, Назва: {title}, Видавництво: {publisher}, Рік: {year}")
+        print(f"Author: {author}, Title: {title}, Publisher: {publisher}, Year: {year}")
 
 def search(criteria, value):
     books = load()
@@ -35,44 +35,43 @@ def edit(title):
     books = load()
     for i, book in enumerate(books):
         if title in book.strip().split(',')[1]:
-            author = input("Введіть прізвище нового автора: ")
-            new_title = input("Введіть нову назву книги: ")
-            publisher = input("Введіть нове видавництво: ")
-            year = input("Введіть новий рік видання: ")
+            author = input("Enter the new author's last name: ")
+            new_title = input("Enter the new book title: ")
+            publisher = input("Enter the new publisher: ")
+            year = input("Enter the new publication year: ")
             books[i] = f"{author},{new_title},{publisher},{year}\n"
             break
     save(books)
 
-
 while True:
-    print("\nМеню:")
-    print("1. Створити базу даних")
-    print("2. Редагувати базу даних")
-    print("3. Видалити запис")
-    print("4. Пошук за критерієм")
-    print("5. Переглянути базу даних")
-    print("6. Вийти")
-    choice = input("Введіть ваш вибір: ")
+    print("\nMenu:")
+    print("1. Create database entry")
+    print("2. Edit database entry")
+    print("3. Delete entry")
+    print("4. Search by criteria")
+    print("5. View database")
+    print("6. Exit")
+    choice = input("Enter your choice: ")
     if choice == "1":
         book = create()
         with open(filename, "a") as file:
             file.write(book)
     elif choice == "2":
-        title = input("Введіть назву книги для редагування: ")
+        title = input("Enter the book title to edit: ")
         edit(title)
     elif choice == "3":
-        title = input("Введіть назву книги для видалення: ")
+        title = input("Enter the book title to delete: ")
         delete(title)
     elif choice == "4":
-        critery = int(input("Введіть критерій пошуку (0: автор, 1: назва, 2: видавництво, 3: рік): "))
-        value = input("Введіть значення для пошуку: ")
-        results = search(critery, value)
+        criteria = int(input("Enter search criteria (0: author, 1: title, 2: publisher, 3: year): "))
+        value = input("Enter value to search: ")
+        results = search(criteria, value)
         for book in results:
             author, title, publisher, year = book.strip().split(',')
-            print(f"Автор: {author}, Назва: {title}, Видавництво: {publisher}, Рік: {year}")
+            print(f"Author: {author}, Title: {title}, Publisher: {publisher}, Year: {year}")
     elif choice == "5":
         view()
     elif choice == "6":
         break
     else:
-        print("Невірний вибір. Будь ласка, спробуйте ще раз.")
+        print("Invalid choice. Please try again.")
